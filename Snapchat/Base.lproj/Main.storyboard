@@ -65,8 +65,23 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n1P-KG-DOM">
+                                <rect key="frame" x="107" y="570" width="200" height="45"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="vxA-jP-Xea"/>
+                                    <constraint firstAttribute="height" constant="45" id="wbd-mV-O88"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="  Google" image="google">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="logInGoogleTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cba-0U-VJ7"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.85233160621761661" green="0.85233160621761661" blue="0.85233160621761661" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="EpY-Cz-9Oo" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2Dq-LY-I1O"/>
                             <constraint firstItem="p2c-Lp-pWl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6Ca-mm-Bf5"/>
@@ -77,8 +92,10 @@
                             <constraint firstItem="r0s-81-iqI" firstAttribute="top" secondItem="EpY-Cz-9Oo" secondAttribute="bottom" constant="35" id="U8S-af-L9l"/>
                             <constraint firstItem="8Fd-OU-F0p" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ydu-XB-OsZ"/>
                             <constraint firstItem="zfS-Kv-aCl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cfB-pa-F8i"/>
+                            <constraint firstItem="n1P-KG-DOM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hec-6A-ad5"/>
                             <constraint firstItem="DcI-W9-fLw" firstAttribute="top" secondItem="zfS-Kv-aCl" secondAttribute="bottom" constant="25" id="iOR-k3-Ayy"/>
                             <constraint firstItem="r0s-81-iqI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ilV-zY-z29"/>
+                            <constraint firstItem="n1P-KG-DOM" firstAttribute="top" secondItem="r0s-81-iqI" secondAttribute="bottom" constant="20" id="puN-iK-Zdy"/>
                             <constraint firstItem="zfS-Kv-aCl" firstAttribute="top" secondItem="8Fd-OU-F0p" secondAttribute="bottom" constant="60" id="xAB-rp-Ynh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -94,6 +111,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="google" width="24" height="24"/>
         <image name="user" width="128" height="128"/>
     </resources>
 </document>
