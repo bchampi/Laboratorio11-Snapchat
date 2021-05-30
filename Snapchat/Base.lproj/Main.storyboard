@@ -45,10 +45,10 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r0s-81-iqI">
-                                <rect key="frame" x="107" y="505" width="200" height="45"/>
+                                <rect key="frame" x="12" y="505" width="390" height="45"/>
                                 <color key="backgroundColor" red="0.33456504339999998" green="0.37471324210000001" blue="0.50198906659999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="13x-3m-dxC"/>
+                                    <constraint firstAttribute="width" constant="390" id="13x-3m-dxC"/>
                                     <constraint firstAttribute="height" constant="45" id="GX2-VH-NHe"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
@@ -66,10 +66,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n1P-KG-DOM">
-                                <rect key="frame" x="107" y="570" width="200" height="45"/>
+                                <rect key="frame" x="12" y="570" width="187" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="vxA-jP-Xea"/>
+                                    <constraint firstAttribute="width" constant="187" id="chU-jH-ISP"/>
                                     <constraint firstAttribute="height" constant="45" id="wbd-mV-O88"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -78,6 +78,21 @@
                                 </state>
                                 <connections>
                                     <action selector="logInGoogleTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Cba-0U-VJ7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vb-dF-wvA">
+                                <rect key="frame" x="215" y="570" width="187" height="45"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="187" id="TUF-e5-Ooy"/>
+                                    <constraint firstAttribute="height" constant="45" id="Zlk-cB-pIO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="  Facebook" image="facebook">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="logInFacebookTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e8n-D2-bHx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -89,13 +104,15 @@
                             <constraint firstItem="8Fd-OU-F0p" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="HIw-HJ-b72"/>
                             <constraint firstItem="EpY-Cz-9Oo" firstAttribute="top" secondItem="p2c-Lp-pWl" secondAttribute="bottom" constant="25" id="HsV-Hf-qtO"/>
                             <constraint firstItem="p2c-Lp-pWl" firstAttribute="top" secondItem="DcI-W9-fLw" secondAttribute="bottom" constant="25" id="L73-DZ-Udq"/>
+                            <constraint firstItem="n1P-KG-DOM" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="12" id="Olj-fe-CeT"/>
                             <constraint firstItem="r0s-81-iqI" firstAttribute="top" secondItem="EpY-Cz-9Oo" secondAttribute="bottom" constant="35" id="U8S-af-L9l"/>
+                            <constraint firstItem="1vb-dF-wvA" firstAttribute="top" secondItem="r0s-81-iqI" secondAttribute="bottom" constant="20" id="WAH-FT-z26"/>
                             <constraint firstItem="8Fd-OU-F0p" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Ydu-XB-OsZ"/>
                             <constraint firstItem="zfS-Kv-aCl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cfB-pa-F8i"/>
-                            <constraint firstItem="n1P-KG-DOM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hec-6A-ad5"/>
                             <constraint firstItem="DcI-W9-fLw" firstAttribute="top" secondItem="zfS-Kv-aCl" secondAttribute="bottom" constant="25" id="iOR-k3-Ayy"/>
                             <constraint firstItem="r0s-81-iqI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ilV-zY-z29"/>
                             <constraint firstItem="n1P-KG-DOM" firstAttribute="top" secondItem="r0s-81-iqI" secondAttribute="bottom" constant="20" id="puN-iK-Zdy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1vb-dF-wvA" secondAttribute="trailing" constant="12" id="qj7-bK-78e"/>
                             <constraint firstItem="zfS-Kv-aCl" firstAttribute="top" secondItem="8Fd-OU-F0p" secondAttribute="bottom" constant="60" id="xAB-rp-Ynh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -107,10 +124,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="138"/>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
     <resources>
+        <image name="facebook" width="24" height="24"/>
         <image name="google" width="24" height="24"/>
         <image name="user" width="128" height="128"/>
     </resources>
