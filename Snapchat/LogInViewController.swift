@@ -59,8 +59,20 @@ class LogInViewController: UIViewController {
         print("Intentando Iniciar Sesión")
         if let result = result, error == nil {
             print("Inicio de sesión exitoso con la cuenta: \(result.user.email!), mediante \(typeAuth)")
+            self.performSegue(withIdentifier: "logInSegue", sender: nil)
         } else {
             print("Se presentó el siguiente error: \(String(describing: error))")
+            if typeAuth == "Correo y contraseña" {
+                Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!, completion: { (result, error) in
+                    print("Intentando crear usuario")
+                    if let result = result, error == nil {
+                        print("El usuario con correo electrónico: \(result.user.email!), fue creado exitosamente con el proveedor \(typeAuth)")
+                        self.performSegue(withIdentifier: "logInSegue", sender: nil)
+                    } else {
+                        print("Se presentó el siguiente error al crear un usuario: \(String(describing: error))")
+                    }
+                })
+            }
         }
     }
 }
@@ -78,5 +90,5 @@ extension LogInViewController: GIDSignInDelegate {
     }
 }
 
-// user@gmail.com 123456789
+// user@gmail.com user@empresa.com - 123456789
 // Auth Google brayan.champi@tecsup.edu.pe
