@@ -216,12 +216,29 @@
                     <connections>
                         <outlet property="descriptionTextField" destination="IQV-qN-RcV" id="ZKB-rX-EaG"/>
                         <outlet property="imageView" destination="Reh-yE-xNQ" id="5hu-mV-8Nd"/>
-                        <outlet property="selectContact" destination="UZo-iO-Xko" id="iye-7V-wlj"/>
+                        <outlet property="selectContactBtn" destination="UZo-iO-Xko" id="tqj-G4-2SF"/>
+                        <segue destination="TNP-RY-b4J" kind="show" identifier="selectContact" id="4Hp-bA-vMg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IIS-dz-MtX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2339.130434782609" y="137.94642857142856"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="mue-tC-XPn">
+            <objects>
+                <viewController id="TNP-RY-b4J" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Qwu-6C-XIh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="AKh-5O-JxF"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="FSv-e6-4Wb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0DX-AB-faG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3083" y="138"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rfg-pb-Kij">

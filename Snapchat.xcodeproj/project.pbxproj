@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		485B615E266807A2006B810B /* SnapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485B615D266807A2006B810B /* SnapsViewController.swift */; };
 		485B6160266812E4006B810B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485B615F266812E4006B810B /* ImageViewController.swift */; };
+		485B61622668184B006B810B /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485B61612668184B006B810B /* UserViewController.swift */; };
 		489DB507265EC6D400E3BAE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DB506265EC6D400E3BAE1 /* AppDelegate.swift */; };
 		489DB509265EC6D400E3BAE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DB508265EC6D400E3BAE1 /* SceneDelegate.swift */; };
 		489DB50E265EC6D400E3BAE1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 489DB50C265EC6D400E3BAE1 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 		485B615C266804BF006B810B /* Snapchat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Snapchat.entitlements; sourceTree = "<group>"; };
 		485B615D266807A2006B810B /* SnapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapsViewController.swift; sourceTree = "<group>"; };
 		485B615F266812E4006B810B /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		485B61612668184B006B810B /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		489DB503265EC6D400E3BAE1 /* Snapchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		489DB506265EC6D400E3BAE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		489DB508265EC6D400E3BAE1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 				48E4793A265F644500BDB666 /* LogInViewController.swift */,
 				485B615D266807A2006B810B /* SnapsViewController.swift */,
 				485B615F266812E4006B810B /* ImageViewController.swift */,
+				485B61612668184B006B810B /* UserViewController.swift */,
 			);
 			path = Snapchat;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				485B615E266807A2006B810B /* SnapsViewController.swift in Sources */,
+				485B61622668184B006B810B /* UserViewController.swift in Sources */,
 				485B6160266812E4006B810B /* ImageViewController.swift in Sources */,
 				489DB507265EC6D400E3BAE1 /* AppDelegate.swift in Sources */,
 				489DB509265EC6D400E3BAE1 /* SceneDelegate.swift in Sources */,
