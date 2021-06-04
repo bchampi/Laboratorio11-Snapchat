@@ -11,5 +11,6 @@ target 'Snapchat' do
   pod 'GoogleSignIn'
   pod 'FacebookLogin'
   pod 'Firebase/Storage'
+  pod 'Firebase/Database'
 
 end
