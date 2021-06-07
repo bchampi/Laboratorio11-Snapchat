@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
 import FirebaseAuth
 import GoogleSignIn
 import FacebookLogin
@@ -17,8 +16,6 @@ class LogInViewController: UIViewController {
 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
-    private let database = Database.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,31 +57,31 @@ class LogInViewController: UIViewController {
     
     private func showHome(result: AuthDataResult?, error: Error?, typeAuth: String) {
         print("Intentando Iniciar Sesión")
-        if let result = result, error == nil {
-            print("Inicio de sesión exitoso con la cuenta: \(result.user.email!), mediante \(typeAuth)")
+        if error == nil {
+            print("Inicio de sesión exitoso con la cuenta: \(result!.user.email!), mediante \(typeAuth)")
             self.performSegue(withIdentifier: "logInSegue", sender: nil)
         } else {
             print("Se presentó el siguiente error: \(String(describing: error))")
-            if typeAuth == "Correo y contraseña" {
-                Auth.auth().createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!, completion: { (result, error) in
-                    print("Intentando crear usuario")
-                    if let result = result, error == nil {
-                        print("El usuario con correo electrónico: \(result.user.email!), fue creado exitosamente con el proveedor \(typeAuth)")
-                        
-                        self.database.child("usuarios").child(result.user.uid).child("email").setValue(result.user.email)
-                        
-                        let alert = UIAlertController(title: "Creación de un Usuario", message: "Usuario: \(self.emailTextField.text!) se creó correctamente", preferredStyle: .alert)
-                        let btnOk = UIAlertAction(title: "Aceptar", style: .default, handler: { (UIAlertAction) in
-                            self.performSegue(withIdentifier: "logInSegue", sender: nil)
-                        })
-                        alert.addAction(btnOk)
-                        self.present(alert, animated: true, completion: nil)
-                    } else {
-                        print("Se presentó el siguiente error al crear un usuario: \(String(describing: error))")
-                    }
-                })
+            if let _ = emailTextField, let _ = passwordTextField {
+                if typeAuth == "Correo y contraseña" {
+                    self.showAlert()
+                }
             }
         }
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Hubo error", message: "Usuario \(self.emailTextField.text!) incorrecto, cree uno o intentelo de nuevo", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Crear", style: .default, handler: { (action) in
+            self.performSegue(withIdentifier: "signInSegue", sender: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: { (action) in
+            
+        }))
+        
+        present(alert, animated: true, completion: nil)
     }
 }
 
