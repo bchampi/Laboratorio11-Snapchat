@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		4812B55C2669F3620078E875 /* SelectUserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812B55B2669F3620078E875 /* SelectUserTableViewController.swift */; };
 		4812B560266A03970078E875 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4812B55F266A03970078E875 /* User.swift */; };
-		485B615E266807A2006B810B /* SnapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485B615D266807A2006B810B /* SnapsViewController.swift */; };
+		48171D3E26714A7500A82A3F /* Snap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48171D3D26714A7500A82A3F /* Snap.swift */; };
+		48171D4026714C8000A82A3F /* SnapsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48171D3F26714C8000A82A3F /* SnapsTableViewController.swift */; };
 		485B6160266812E4006B810B /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485B615F266812E4006B810B /* ImageViewController.swift */; };
 		489DB507265EC6D400E3BAE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DB506265EC6D400E3BAE1 /* AppDelegate.swift */; };
 		489DB509265EC6D400E3BAE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 489DB508265EC6D400E3BAE1 /* SceneDelegate.swift */; };
@@ -25,8 +26,9 @@
 /* Begin PBXFileReference section */
 		4812B55B2669F3620078E875 /* SelectUserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectUserTableViewController.swift; sourceTree = "<group>"; };
 		4812B55F266A03970078E875 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		48171D3D26714A7500A82A3F /* Snap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snap.swift; sourceTree = "<group>"; };
+		48171D3F26714C8000A82A3F /* SnapsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapsTableViewController.swift; sourceTree = "<group>"; };
 		485B615C266804BF006B810B /* Snapchat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Snapchat.entitlements; sourceTree = "<group>"; };
-		485B615D266807A2006B810B /* SnapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapsViewController.swift; sourceTree = "<group>"; };
 		485B615F266812E4006B810B /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		489DB503265EC6D400E3BAE1 /* Snapchat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapchat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		489DB506265EC6D400E3BAE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -59,10 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				48E4793A265F644500BDB666 /* LogInViewController.swift */,
-				485B615D266807A2006B810B /* SnapsViewController.swift */,
 				485B615F266812E4006B810B /* ImageViewController.swift */,
 				4812B55B2669F3620078E875 /* SelectUserTableViewController.swift */,
 				48B61316266D958400BF1D9E /* SignInViewController.swift */,
+				48171D3F26714C8000A82A3F /* SnapsTableViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				4812B55F266A03970078E875 /* User.swift */,
+				48171D3D26714A7500A82A3F /* Snap.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -261,10 +264,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				485B615E266807A2006B810B /* SnapsViewController.swift in Sources */,
 				4812B55C2669F3620078E875 /* SelectUserTableViewController.swift in Sources */,
+				48171D3E26714A7500A82A3F /* Snap.swift in Sources */,
 				485B6160266812E4006B810B /* ImageViewController.swift in Sources */,
 				489DB507265EC6D400E3BAE1 /* AppDelegate.swift in Sources */,
+				48171D4026714C8000A82A3F /* SnapsTableViewController.swift in Sources */,
 				48B61317266D958400BF1D9E /* SignInViewController.swift in Sources */,
 				489DB509265EC6D400E3BAE1 /* SceneDelegate.swift in Sources */,
 				48E4793B265F644500BDB666 /* LogInViewController.swift in Sources */,

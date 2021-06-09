@@ -1,53 +1,57 @@
 //
-//  SelectUserTableViewController.swift
+//  SnapsTableViewController.swift
 //  Snapchat
 //
-//  Created by Mac 17 on 6/4/21.
+//  Created by Mac 17 on 6/9/21.
 //  Copyright © 2021 deah. All rights reserved.
 //
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import FirebaseDatabase
 
-class SelectUserTableViewController: UITableViewController {
+class SnapsTableViewController: UITableViewController {
     
-    let database = Database.database().reference()
-    var users: [User] = []
-    var imageURL = ""
-    var descrip = ""
+    var snaps: [Snap] = []
+    private let database = Database.database().reference()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        database.child("usuarios").observe(DataEventType.childAdded, with: { (snapshot) in
-            print(snapshot)
-            
-            let user = User()
-            user.email = (snapshot.value as! NSDictionary)["email"] as! String
-            user.uid = snapshot.key
-            self.users.append(user)
+
+        database.child("usuarios").child((Auth.auth().currentUser?.uid)!).child("snaps").observe(DataEventType.childAdded, with: { (snapshot) in
+            let snap = Snap()
+            snap.imagURL = (snapshot.value as! NSDictionary)["imageURL"] as! String
+            snap.from = (snapshot.value as! NSDictionary)["from"] as! String
+            snap.descrip = (snapshot.value as! NSDictionary)["description"] as! String
+            self.snaps.append(snap)
             self.tableView.reloadData()
         })
     }
+    
+    @IBAction func signOutTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return snaps.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let user = users[indexPath.row]
-        cell.textLabel?.text = user.email
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellSnaps", for: indexPath)
+        let snap = snaps[indexPath.row]
+        cell.textLabel?.text = snap.from
+
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = users[indexPath.row]
-        let snap = ["from": user.email, "description": descrip, "imageURL": imageURL]
-        database.child("usuarios").child(user.uid).child("snaps").childByAutoId().setValue(snap)
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
     }
+    */
 
     /*
     // Override to support editing the table view.

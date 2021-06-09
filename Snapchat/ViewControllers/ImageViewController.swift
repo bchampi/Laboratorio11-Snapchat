@@ -34,16 +34,27 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         self.selectContactBtn.isEnabled = false
         let imagesFolder = Storage.storage().reference().child("imagenes")
         let imageData = imageView.image?.jpegData(compressionQuality: 0.50)
-        let loadImage = imagesFolder.child("\(NSUUID().uuidString).jpg").putData(imageData!, metadata: nil) { (metadata, error) in
+        let loadImage = imagesFolder.child("\(NSUUID().uuidString).jpg")
+            loadImage.putData(imageData!, metadata: nil) { (metadata, error) in
             if error != nil {
                 self.showAlert(title: "Error", message: "Se produjo un error al subir la imágen. Verifique su conexión a internet y vuelva a intentarlo", action: "Aceptar")
                 self.selectContactBtn.isEnabled = true
                 print("Se presentó el siguiente error al subir la imágen: \(String(describing: error))")
             } else {
-                self.performSegue(withIdentifier: "selectContact", sender: nil)
+                loadImage.downloadURL(completion: { (url, error) in
+                    guard let linkURL = url else {
+                        self.showAlert(title: "Error", message: "Se produjo un error al obtener información de la imagen", action: "Cancelar")
+                        self.selectContactBtn.isEnabled = true
+                        print("Ocurrio el siguiente error al obtener información de la imagen: \(error!)")
+                        return
+                    }
+                    self.performSegue(withIdentifier: "selectContact", sender: nil)
+                })
+                
             }
         }
         
+        /*
         let loadAlert = UIAlertController(title: "Cargando Imágen...", message: "0%", preferredStyle: .alert)
         let progress: UIProgressView = UIProgressView(progressViewStyle: .default)
         loadImage.observe(.progress) { (snapshot) in
@@ -61,6 +72,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         loadAlert.addAction(btnOk)
         loadAlert.view.addSubview(progress)
         present(loadAlert, animated: true, completion: nil)
+        */
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -79,7 +91,9 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        let nextVC = segue.destination as! SelectUserTableViewController
+        nextVC.imageURL = sender as! String
+        nextVC.descrip = descriptionTextField.text!
     }
 
 }

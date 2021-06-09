@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
+import FirebaseCore
 import FirebaseAuth
+import FirebaseDatabase
 
 class SignInViewController: UIViewController {
 

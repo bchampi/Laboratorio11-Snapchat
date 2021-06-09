@@ -136,7 +136,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="DcI-W9-fLw" id="p3Y-az-Ays"/>
                         <outlet property="passwordTextField" destination="EpY-Cz-9Oo" id="iUd-sb-jQ6"/>
-                        <segue destination="hVA-JE-AOL" kind="presentation" identifier="logInSegue" id="bG5-sV-REp"/>
+                        <segue destination="vbd-NI-Ko5" kind="presentation" identifier="logInSegue" id="WSH-Vl-Rhf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -233,33 +233,47 @@
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="828.34821428571422"/>
         </scene>
-        <!--Snaps View Controller-->
-        <scene sceneID="NQ4-nZ-v7W">
+        <!--Snaps Table View Controller-->
+        <scene sceneID="NYb-xQ-8IO">
             <objects>
-                <viewController id="Kh3-sM-iOc" customClass="SnapsViewController" customModule="Snapchat" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="5e6-i3-jrC">
+                <tableViewController id="muE-JN-bUN" customClass="SnapsTableViewController" customModule="Snapchat" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kkn-j6-nYD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.95394134657006335" green="0.94801624503857218" blue="0.95986644810155441" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <viewLayoutGuide key="safeArea" id="pRS-76-9tX"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="3QX-CI-eB6">
-                        <barButtonItem key="backBarButtonItem" title="Inicio" id="IgL-cB-xSh"/>
-                        <barButtonItem key="leftBarButtonItem" title="Cerrar Sesión" id="7ZR-Ob-SHX">
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellSnaps" id="C2s-0C-tvq">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="C2s-0C-tvq" id="rtW-Xi-Zzx">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="muE-JN-bUN" id="6Tp-Ax-QSH"/>
+                            <outlet property="delegate" destination="muE-JN-bUN" id="qbL-V3-bPO"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="wkL-VV-ZWY">
+                        <barButtonItem key="backBarButtonItem" title="Inicio" id="gBK-eV-KdW"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cerrar Sesión" id="dEm-J5-hTe">
+                            <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
-                                <action selector="signOutTapped:" destination="Kh3-sM-iOc" id="PKW-zf-4Uj"/>
+                                <action selector="signOutTapped:" destination="muE-JN-bUN" id="8AD-sX-Ca2"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" style="done" id="Yli-Pk-hrL">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="plus" catalog="system" style="done" id="k5H-cz-Ufa">
                             <connections>
-                                <segue destination="B90-X0-Set" kind="show" id="1XA-wd-IED"/>
+                                <segue destination="B90-X0-Set" kind="show" id="ZeS-FB-SH7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SUB-Hm-vIQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MbC-7n-2hX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1580" y="138"/>
+            <point key="canvasLocation" x="1603" y="138"/>
         </scene>
         <!--Enviar Mensaje-->
         <scene sceneID="WLC-9M-6Ef">
@@ -360,25 +374,23 @@
             <point key="canvasLocation" x="3110" y="138"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="rfg-pb-Kij">
+        <scene sceneID="Jzd-4c-1VJ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="hVA-JE-AOL" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="vbd-NI-Ko5" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ylh-lo-IXA">
+                    <navigationItem key="navigationItem" id="22K-pD-VDm"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="m3Q-kN-8eI">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hQe-x7-CXg">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                     <connections>
-                        <segue destination="Kh3-sM-iOc" kind="relationship" relationship="rootViewController" id="e4P-Di-0w9"/>
+                        <segue destination="muE-JN-bUN" kind="relationship" relationship="rootViewController" id="nYb-PX-Wap"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0qF-Yy-WeC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WMT-Yb-rop" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="857" y="138"/>
+            <point key="canvasLocation" x="880" y="138"/>
         </scene>
     </scenes>
     <resources>
