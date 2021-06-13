@@ -24,7 +24,19 @@ class SnapsTableViewController: UITableViewController {
             snap.imagURL = (snapshot.value as! NSDictionary)["imageURL"] as! String
             snap.from = (snapshot.value as! NSDictionary)["from"] as! String
             snap.descrip = (snapshot.value as! NSDictionary)["description"] as! String
+            snap.id = snapshot.key
             self.snaps.append(snap)
+            self.tableView.reloadData()
+        })
+        
+        database.child("usuarios").child((Auth.auth().currentUser?.uid)!).child("snaps").observe(DataEventType.childRemoved, with: { (snapshot) in
+            var iterator = 0
+            for snap in self.snaps {
+                if snap.id == snapshot.key {
+                    self.snaps.remove(at: iterator)
+                }
+                iterator += 1
+            }
             self.tableView.reloadData()
         })
     }
@@ -43,6 +55,11 @@ class SnapsTableViewController: UITableViewController {
         cell.textLabel?.text = snap.from
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let snap = snaps[indexPath.row]
+        performSegue(withIdentifier: "showSnapSegue", sender: snap)
     }
 
     /*
@@ -80,14 +97,11 @@ class SnapsTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "showSnapSegue" {
+            let nextVC = segue.destination as! ShowSnapViewController
+            nextVC.snap = sender as! Snap
+        }
     }
-    */
 
 }

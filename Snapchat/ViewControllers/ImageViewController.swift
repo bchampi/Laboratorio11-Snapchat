@@ -42,13 +42,13 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
                 print("Se presentó el siguiente error al subir la imágen: \(String(describing: error))")
             } else {
                 loadImage.downloadURL(completion: { (url, error) in
-                    guard let linkURL = url else {
+                    guard let _ = url else {
                         self.showAlert(title: "Error", message: "Se produjo un error al obtener información de la imagen", action: "Cancelar")
                         self.selectContactBtn.isEnabled = true
                         print("Ocurrio el siguiente error al obtener información de la imagen: \(error!)")
                         return
                     }
-                    self.performSegue(withIdentifier: "selectContact", sender: nil)
+                    self.performSegue(withIdentifier: "selectContactSegue", sender: url?.absoluteString)
                 })
                 
             }
