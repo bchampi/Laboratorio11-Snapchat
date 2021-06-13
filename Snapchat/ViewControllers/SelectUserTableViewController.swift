@@ -16,6 +16,7 @@ class SelectUserTableViewController: UITableViewController {
     var users: [User] = []
     var imageURL = ""
     var descrip = ""
+    var imageID = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +46,9 @@ class SelectUserTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
-        let snap = ["from": user.email, "description": descrip, "imageURL": imageURL]
+        let snap = ["from": user.email, "description": descrip, "imageURL": imageURL, "imageID": imageID]
         database.child("usuarios").child(user.uid).child("snaps").childByAutoId().setValue(snap)
+        navigationController?.popViewController(animated: true)
     }
 
     /*

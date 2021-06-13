@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseStorage
 import FirebaseAuth
 import SDWebImage
 
@@ -29,6 +30,9 @@ class ShowSnapViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         database.child("usuarios").child((Auth.auth().currentUser?.uid)!).child("snaps").child(snap.id).removeValue()
+        Storage.storage().reference().child("imagenes").child("\(snap.imageID).jpg").delete { (error) in
+            print("Se eliminó la imagen correctamente")
+        }
     }
 
     /*

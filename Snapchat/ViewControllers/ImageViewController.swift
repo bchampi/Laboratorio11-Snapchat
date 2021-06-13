@@ -16,6 +16,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     @IBOutlet weak var selectContactBtn: UIButton!
     
     var imagePicker = UIImagePickerController()
+    var imageID = NSUUID().uuidString
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +25,15 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         selectContactBtn.isEnabled = false
     }
     
-    @IBAction func cameraTapped(_ sender: Any) {
+    
+    @IBAction func mediaTapped(_ sender: Any) {
         imagePicker.sourceType = .savedPhotosAlbum
+        imagePicker.allowsEditing = false
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func cameraTapped(_ sender: Any) {
+        imagePicker.sourceType = .camera
         imagePicker.allowsEditing = false
         present(imagePicker, animated: true, completion: nil)
     }
@@ -34,7 +42,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         self.selectContactBtn.isEnabled = false
         let imagesFolder = Storage.storage().reference().child("imagenes")
         let imageData = imageView.image?.jpegData(compressionQuality: 0.50)
-        let loadImage = imagesFolder.child("\(NSUUID().uuidString).jpg")
+        let loadImage = imagesFolder.child("\(imageID).jpg")
             loadImage.putData(imageData!, metadata: nil) { (metadata, error) in
             if error != nil {
                 self.showAlert(title: "Error", message: "Se produjo un error al subir la imágen. Verifique su conexión a internet y vuelva a intentarlo", action: "Aceptar")
@@ -94,6 +102,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         let nextVC = segue.destination as! SelectUserTableViewController
         nextVC.imageURL = sender as! String
         nextVC.descrip = descriptionTextField.text!
+        nextVC.imageID = imageID
     }
 
 }

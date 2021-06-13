@@ -25,6 +25,7 @@ class SnapsTableViewController: UITableViewController {
             snap.from = (snapshot.value as! NSDictionary)["from"] as! String
             snap.descrip = (snapshot.value as! NSDictionary)["description"] as! String
             snap.id = snapshot.key
+            snap.imageID = (snapshot.value as! NSDictionary)["imageID"] as! String
             self.snaps.append(snap)
             self.tableView.reloadData()
         })
@@ -46,14 +47,17 @@ class SnapsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return snaps.count
+        return snaps.count != 0 ? snaps.count : 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellSnaps", for: indexPath)
-        let snap = snaps[indexPath.row]
-        cell.textLabel?.text = snap.from
-
+        if snaps.count == 0 {
+            cell.textLabel?.text = "No tienes Snaps 😭"
+        } else {
+            let snap = snaps[indexPath.row]
+            cell.textLabel?.text = snap.from
+        }
         return cell
     }
     

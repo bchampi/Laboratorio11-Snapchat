@@ -329,11 +329,18 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Enviar Mensaje" id="ZBR-4K-YcT">
                         <barButtonItem key="backBarButtonItem" title="Enviar Mensaje" id="Uwm-UT-evo"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="camera.fill" catalog="system" id="BLF-bv-FoO" userLabel="Camera">
-                            <connections>
-                                <action selector="cameraTapped:" destination="B90-X0-Set" id="0Ja-ef-IOi"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="camera.fill" catalog="system" id="BLF-bv-FoO" userLabel="Camera">
+                                <connections>
+                                    <action selector="cameraTapped:" destination="B90-X0-Set" id="0Ja-ef-IOi"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="organize" id="Oxm-a0-sXc">
+                                <connections>
+                                    <action selector="mediaTapped:" destination="B90-X0-Set" id="Rn6-zi-Dm4"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
