@@ -17,7 +17,11 @@ class ShowSnapViewController: UIViewController {
     @IBOutlet weak var labelMessage: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var labelAudio: UILabel!
+    @IBOutlet weak var labelDurationRecord: UILabel!
+    
     private let database = Database.database().reference()
+    private let storage = Storage.storage().reference()
     var snap = Snap()
     
     override func viewDidLoad() {
@@ -26,12 +30,19 @@ class ShowSnapViewController: UIViewController {
 
         labelMessage.text = snap.descrip
         imageView.sd_setImage(with: URL(string: snap.imagURL), completed: nil)
+        
+        labelAudio.text = snap.audioName
+        labelDurationRecord.text = snap.audioDuration
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         database.child("usuarios").child((Auth.auth().currentUser?.uid)!).child("snaps").child(snap.id).removeValue()
-        Storage.storage().reference().child("imagenes").child("\(snap.imageID).jpg").delete { (error) in
+        storage.child("imagenes").child("\(snap.imageID).jpg").delete { (error) in
             print("Se eliminó la imagen correctamente")
+        }
+        
+        storage.child("audios").child("\(snap.audioID).mp3").delete { (error) in
+            print("Se eliminó el audio correctamente")
         }
     }
 

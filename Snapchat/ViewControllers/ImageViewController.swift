@@ -27,6 +27,7 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     var recordAudio: AVAudioRecorder?
     var playAudio: AVAudioPlayer?
     var audioURL: URL?
+    var audioID = NSUUID().uuidString
     
     var timer: Timer = Timer()
     var count: Int = 0
@@ -57,41 +58,13 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         present(imagePicker, animated: true, completion: nil)
     }
     
-    func recordingConfiguration() {
-        do {
-            let session = AVAudioSession.sharedInstance()
-            try session.setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.default, options: [])
-            try session.overrideOutputAudioPort(.speaker)
-            try session.setActive(true)
-            
-            let basePath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-            let pathComponents = [basePath, "audio.m4a"]
-            audioURL = NSURL.fileURL(withPathComponents: pathComponents)!
-            
-            print("******************************")
-            print(audioURL!)
-            print("******************************")
-            
-            var settings: [String: AnyObject] = [:]
-            settings[AVFormatIDKey] = Int(kAudioFormatMPEG4AAC) as AnyObject?
-            settings[AVSampleRateKey] = 44100.0 as AnyObject?
-            settings[AVNumberOfChannelsKey] = 2 as AnyObject?
-            
-            recordAudio = try AVAudioRecorder(url: audioURL!, settings: settings)
-            recordAudio!.prepareToRecord()
-        }
-        catch let error as NSError{
-            print(error)
-        }
-    }
-    
     @IBAction func recordTapped(_ sender: Any) {
         if recordAudio!.isRecording {
             recordAudio?.stop()
             recordButton.setTitle("Grabar", for: .normal)
             playButton.isEnabled = true
             selectContactBtn.isEnabled = true
-            self.selectContactBtn.backgroundColor = UIColor.link
+            selectContactBtn.backgroundColor = UIColor.link
             timerCounting = false
             timer.invalidate()
             durationRecord.textColor = UIColor.black
@@ -99,6 +72,8 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         else {
             recordButton.setTitle("Detener", for: .normal)
             playButton.isEnabled = false
+            selectContactBtn.isEnabled = false
+            selectContactBtn.backgroundColor = UIColor.lightGray
             recordAudio?.record()
             timerCounting = true
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
@@ -139,73 +114,50 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
     
     
     @IBAction func selectContactTapped(_ sender: Any) {
-        selectContactBtn.isEnabled = false
-        selectContactBtn.backgroundColor = UIColor.lightGray
         
         let imagesFolder = Storage.storage().reference().child("imagenes")
-        let imageData = imageView.image?.jpegData(compressionQuality: 0.50)
-        let loadImage = imagesFolder.child("\(imageID).jpg")
-            loadImage.putData(imageData!, metadata: nil) { (metadata, error) in
-            if error != nil {
-                self.showAlert(title: "Error", message: "Se produjo un error al subir la imágen. Verifique su conexión a internet y vuelva a intentarlo", action: "Aceptar")
-                self.selectContactBtn.isEnabled = false
-                self.selectContactBtn.backgroundColor = UIColor.lightGray
-                print("Se presentó el siguiente error al subir la imágen: \(String(describing: error))")
-            } else {
-                loadImage.downloadURL(completion: { (url, error) in
-                    guard let _ = url else {
-                        self.showAlert(title: "Error", message: "Se produjo un error al obtener información de la imagen", action: "Cancelar")
-                        self.selectContactBtn.isEnabled = false
-                        self.selectContactBtn.backgroundColor = UIColor.lightGray
-                        print("Ocurrio el siguiente error al obtener información de la imagen: \(error!)")
-                        return
-                    }
-                    self.performSegue(withIdentifier: "selectContactSegue", sender: url?.absoluteString)
-                })
-            }
-        }
-        
         let audiosFolder = Storage.storage().reference().child("audios")
+        
+        let imageData = imageView.image?.jpegData(compressionQuality: 0.50)
         let audioData = NSData(contentsOf: audioURL!)! as Data
-        let loadAudio = audiosFolder.child("\(audioData).mp3")
-        loadAudio.putData(audioData, metadata: nil) { (metadata, error) in
-        if error != nil {
-            self.showAlert(title: "Error", message: "Se produjo un error al subir el audio. Verifique su conexión a internet y vuelva a intentarlo", action: "Aceptar")
-            self.selectContactBtn.isEnabled = false
-            self.selectContactBtn.backgroundColor = UIColor.lightGray
-            print("Se presentó el siguiente error al subir el audio: \(String(describing: error))")
-        } else {
-            loadImage.downloadURL(completion: { (url, error) in
-                guard let _ = url else {
-                    self.showAlert(title: "Error", message: "Se produjo un error al obtener información del audio", action: "Cancelar")
+        
+        let loadImage = imagesFolder.child("\(imageID).jpg")
+        let loadAudio = audiosFolder.child("\(audioID).mp3")
+        
+        loadData(loadImage, loadAudio, imageData!, audioData)
+    }
+    
+    private func loadData(_ loadImage: StorageReference, _ loadAudio: StorageReference, _ dataImage: Data, _ dataAudio: Data) {
+        loadImage.putData(dataImage, metadata: nil) { (metadata, errorImage) in
+            
+            loadAudio.putData(dataAudio, metadata: nil) { (metadata, errorAudio) in
+                if errorImage != nil || errorAudio != nil {
+                    self.showAlert(title: "Error", message: "Se produjo un error al subir el archivo de imagen o audio. Verifique su conexión a internet y vuelva a intentarlo", action: "Aceptar")
                     self.selectContactBtn.isEnabled = false
                     self.selectContactBtn.backgroundColor = UIColor.lightGray
-                    print("Ocurrio el siguiente error al obtener información del audio: \(error!)")
-                    return
+                } else {
+                    loadImage.downloadURL(completion: { (urlImage, error) in
+                        
+                        loadAudio.downloadURL(completion: { (urlAudio, error) in
+                            guard let _ = urlImage, let _ = urlAudio else {
+                                self.showAlert(title: "Error", message: "Se produjo un error al obtener información de la imagen o audio", action: "Cancelar")
+                                self.selectContactBtn.isEnabled = false
+                                self.selectContactBtn.backgroundColor = UIColor.lightGray
+                                return
+                            }
+                            self.performSegue(withIdentifier: "selectContactSegue", sender: [urlImage?.absoluteString, urlAudio?.absoluteString])
+                        })
+                    })
                 }
-            })}
-        }
-        
-        
-        /*
-        let loadAlert = UIAlertController(title: "Cargando Imágen...", message: "0%", preferredStyle: .alert)
-        let progress: UIProgressView = UIProgressView(progressViewStyle: .default)
-        loadImage.observe(.progress) { (snapshot) in
-            let percentage = Double(snapshot.progress!.completedUnitCount) / Double(snapshot.progress!.totalUnitCount)
-            print(percentage)
-            progress.setProgress(Float(percentage), animated: true)
-            progress.frame = CGRect(x: 10, y: 70, width: 250, height: 0)
-            loadAlert.message = String(round(percentage * 100.0)) + " %"
-            if percentage >= 1.0 {
-                loadAlert.dismiss(animated: true, completion: nil)
             }
         }
-        
-        let btnOk = UIAlertAction(title: "Aceptar", style: .default, handler: nil)
-        loadAlert.addAction(btnOk)
-        loadAlert.view.addSubview(progress)
-        present(loadAlert, animated: true, completion: nil)
-        */
+    }
+    
+    func showAlert(title: String, message: String, action: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let btnCancelOk = UIAlertAction(title: action, style: .default, handler: nil)
+        alert.addAction(btnCancelOk)
+        present(alert, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -217,18 +169,41 @@ class ImageViewController: UIViewController, UIImagePickerControllerDelegate, UI
         imagePicker.dismiss(animated: true, completion: nil)
     }
     
-    func showAlert(title: String, message: String, action: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let btnCancelOk = UIAlertAction(title: action, style: .default, handler: nil)
-        alert.addAction(btnCancelOk)
-        present(alert, animated: true, completion: nil)
+    func recordingConfiguration() {
+        do {
+            let session = AVAudioSession.sharedInstance()
+            try session.setCategory(AVAudioSession.Category.playAndRecord, mode: AVAudioSession.Mode.default, options: [])
+            try session.overrideOutputAudioPort(.speaker)
+            try session.setActive(true)
+            
+            let basePath: String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+            let pathComponents = [basePath, "audio.m4a"]
+            audioURL = NSURL.fileURL(withPathComponents: pathComponents)!
+            
+            var settings: [String: AnyObject] = [:]
+            settings[AVFormatIDKey] = Int(kAudioFormatMPEG4AAC) as AnyObject?
+            settings[AVSampleRateKey] = 44100.0 as AnyObject?
+            settings[AVNumberOfChannelsKey] = 2 as AnyObject?
+            
+            recordAudio = try AVAudioRecorder(url: audioURL!, settings: settings)
+            recordAudio!.prepareToRecord()
+        }
+        catch let error as NSError{
+            print(error)
+        }
     }
 
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let nextVC = segue.destination as! SelectUserTableViewController
-        nextVC.imageURL = sender as! String
+        let urlLink = sender as! [String]
+        nextVC.imageURL = urlLink[0]
         nextVC.descrip = descriptionTextField.text!
         nextVC.imageID = imageID
+        
+        nextVC.audioURL = urlLink[1]
+        nextVC.audioDuration = durationRecord.text!
+        nextVC.audioName = nameAudioTextField.text!
+        nextVC.audioID = audioID
     }
-
 }
